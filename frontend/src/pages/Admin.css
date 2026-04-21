@@ -82,6 +82,27 @@
   margin-bottom: 16px;
 }
 
+.upload-tab__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.upload-tab__source,
+.tab-source {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.upload-tab__source code,
+.tab-source code {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: var(--green-primary);
+}
+
 .upload-tab__steps {
   display: flex;
   flex-direction: column;

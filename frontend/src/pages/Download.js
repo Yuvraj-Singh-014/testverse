@@ -93,7 +93,7 @@ export default function Download() {
           </h1>
           <p className="section-subtitle">
             Enter the name and email you registered with. We'll verify your
-            participation and generate your certificate instantly.
+            record, generate your PDF, and start the download instantly.
           </p>
         </div>
       </section>
@@ -202,7 +202,7 @@ export default function Download() {
               <ol className="download-info__steps">
                 <li>Enter your registered full name</li>
                 <li>Enter your registered email address</li>
-                <li>Click "Download Certificate"</li>
+                <li>We match both fields against the participant sheet</li>
                 <li>Your PDF certificate downloads automatically</li>
               </ol>
             </div>
@@ -215,7 +215,7 @@ export default function Download() {
               </p>
               <p className="download-info__text">
                 If you still can't find your certificate, contact us at{' '}
-                <a href="mailto:support@hackuverse.com">support@hackuverse.com</a>
+                <a href="mailto:support@greencert.dev">support@greencert.dev</a>
               </p>
             </div>
           </div>

@@ -31,7 +31,7 @@ export default function Navbar() {
       <div className="navbar__inner container">
         {/* Logo */}
         <Link to="/" className="navbar__logo">
-          <span className="navbar__logo-hacku">Hacku</span><span className="navbar__logo-verse">Verse</span>
+          <span className="navbar__logo-hacku">Green</span><span className="navbar__logo-verse">Cert</span>
         </Link>
 
         {/* Desktop links */}

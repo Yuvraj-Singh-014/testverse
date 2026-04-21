@@ -8,6 +8,7 @@ export default function Admin() {
   const [activeTab, setActiveTab] = useState('upload');
   const [participants, setParticipants] = useState([]);
   const [history, setHistory] = useState([]);
+  const [source, setSource] = useState('');
   const [loadingParticipants, setLoadingParticipants] = useState(false);
   const [loadingHistory, setLoadingHistory] = useState(false);
 
@@ -18,6 +19,7 @@ export default function Admin() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setParticipants(data.participants || []);
+      setSource(data.source || '');
     } catch (err) {
       toast.error(err.message || 'Failed to load participants.');
     } finally {
@@ -40,6 +42,10 @@ export default function Admin() {
   }, []);
 
   useEffect(() => {
+    fetchParticipants();
+  }, [fetchParticipants]);
+
+  useEffect(() => {
     if (activeTab === 'participants') fetchParticipants();
     if (activeTab === 'history') fetchHistory();
   }, [activeTab, fetchParticipants, fetchHistory]);
@@ -55,7 +61,7 @@ export default function Admin() {
             Admin <span className="green-text">Dashboard</span>
           </h1>
           <p className="section-subtitle">
-            Upload participant data, view records, and monitor certificate downloads.
+            Upload participant data, review records, and monitor certificate downloads.
           </p>
         </div>
       </section>
@@ -82,12 +88,13 @@ export default function Admin() {
           </div>
 
           <div className="admin-panel">
-            {activeTab === 'upload' && <UploadTab onUploaded={fetchParticipants} />}
+            {activeTab === 'upload' && <UploadTab onUploaded={fetchParticipants} source={source} />}
             {activeTab === 'participants' && (
               <ParticipantsTab
                 participants={participants}
                 loading={loadingParticipants}
                 onRefresh={fetchParticipants}
+                source={source}
               />
             )}
             {activeTab === 'history' && (
@@ -105,20 +112,107 @@ export default function Admin() {
 }
 
 /* ── Upload Tab ─────────────────────────────────────────────────────────────── */
-function UploadTab({ onUploaded }) {
+function UploadTab({ onUploaded, source }) {
+  const [file, setFile] = useState(null);
+  const [status, setStatus] = useState('idle');
+  const [message, setMessage] = useState('');
+
+  async function handleUpload(e) {
+    e.preventDefault();
+
+    if (!file) {
+      setStatus('error');
+      setMessage('Select an Excel file before uploading.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    setStatus('loading');
+    setMessage('');
+
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Upload failed.');
+
+      setStatus('success');
+      setMessage(data.message || 'Participant data updated.');
+      toast.success('Participant sheet uploaded successfully.');
+      onUploaded();
+      setFile(null);
+    } catch (error) {
+      setStatus('error');
+      setMessage(error.message);
+      toast.error(error.message);
+    }
+  }
+
   return (
     <div className="upload-tab">
       <div className="upload-tab__info card">
-        <h3>📋 How to Update Participants</h3>
+        <h3>📋 Update Participant Data</h3>
         <p>
-          This app is deployed on Vercel serverless — file uploads cannot be persisted between
-          requests. To update the participant list:
+          Upload a `.xlsx` file to replace the current participant list for local development
+          and self-hosted deployments.
         </p>
-        <ol className="upload-tab__steps">
-          <li>Edit <code>data/participants.xlsx</code> in the repository</li>
-          <li>Commit and push the changes</li>
-          <li>Vercel will automatically redeploy with the new data</li>
-        </ol>
+        <form className="upload-tab__form" onSubmit={handleUpload}>
+          <label className={`dropzone ${file ? 'dropzone--has-file' : ''}`} htmlFor="participants-file">
+            {!file ? (
+              <div className="dropzone__placeholder">
+                <div className="dropzone__icon">⇪</div>
+                <div className="dropzone__text">Choose an Excel file</div>
+                <div className="dropzone__subtext">Accepted formats: .xlsx or .xls</div>
+              </div>
+            ) : (
+              <div className="dropzone__file">
+                <div className="dropzone__file-icon">▣</div>
+                <div>
+                  <div className="dropzone__file-name">{file.name}</div>
+                  <div className="dropzone__file-size">
+                    {(file.size / 1024).toFixed(1)} KB
+                  </div>
+                </div>
+              </div>
+            )}
+          </label>
+          <input
+            id="participants-file"
+            type="file"
+            accept=".xlsx,.xls"
+            onChange={(event) => setFile(event.target.files?.[0] || null)}
+            hidden
+          />
+
+          <button className="btn btn-primary upload-btn" type="submit" disabled={status === 'loading'}>
+            {status === 'loading' ? (
+              <>
+                <span className="spinner" aria-hidden="true" />
+                Uploading...
+              </>
+            ) : (
+              'Upload Participant Sheet'
+            )}
+          </button>
+        </form>
+
+        {message ? (
+          <div className={`upload-result upload-result--${status === 'success' ? 'success' : 'error'}`}>
+            {message}
+          </div>
+        ) : null}
+
+        {source ? (
+          <p className="upload-tab__source">
+            Active data source: <code>{source}</code>
+          </p>
+        ) : null}
+
         <div className="upload-tab__table-wrap" style={{ marginTop: '20px' }}>
           <p style={{ marginBottom: '10px' }}>Your Excel file must have these columns:</p>
           <table className="upload-tab__table">
@@ -136,13 +230,18 @@ function UploadTab({ onUploaded }) {
             </tbody>
           </table>
         </div>
+        <ol className="upload-tab__steps">
+          <li>Upload a spreadsheet with `Name` and `Email` columns</li>
+          <li>Optional `CertificateID` values are preserved if included</li>
+          <li>Participants can download certificates immediately after a successful upload</li>
+        </ol>
       </div>
     </div>
   );
 }
 
 /* ── Participants Tab ────────────────────────────────────────────────────────── */
-function ParticipantsTab({ participants, loading, onRefresh }) {
+function ParticipantsTab({ participants, loading, onRefresh, source }) {
   const [search, setSearch] = useState('');
 
   const filtered = participants.filter(
@@ -165,6 +264,8 @@ function ParticipantsTab({ participants, loading, onRefresh }) {
           {loading ? <span className="spinner spinner-green" /> : '↻ Refresh'}
         </button>
       </div>
+
+      {source ? <p className="tab-source">Current source: {source}</p> : null}
 
       {loading ? (
         <div className="tab-loading">

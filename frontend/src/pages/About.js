@@ -2,10 +2,10 @@ import React from 'react';
 import './About.css';
 
 const values = [
-  { icon: '🎯', title: 'Excellence', desc: 'We celebrate those who go above and beyond in their learning journey.' },
-  { icon: '🤝', title: 'Integrity', desc: 'Every certificate is backed by verified participation records.' },
-  { icon: '🌱', title: 'Growth', desc: 'We believe in continuous learning and recognizing every milestone.' },
-  { icon: '⚡', title: 'Innovation', desc: 'Modern tools to make certificate issuance fast and seamless.' },
+  { icon: '01', title: 'Verification', desc: 'Every certificate is matched against registered participant records before delivery.' },
+  { icon: '02', title: 'Clarity', desc: 'A minimal interface keeps the process understandable for both mobile and desktop users.' },
+  { icon: '03', title: 'Speed', desc: 'Certificates are generated the moment a valid match is found in the participant sheet.' },
+  { icon: '04', title: 'Control', desc: 'Organizers can update data, review history, and manage records from one place.' },
 ];
 
 export default function About() {
@@ -17,12 +17,12 @@ export default function About() {
         <div className="container about-hero__content">
           <div className="badge badge-green">About Us</div>
           <h1 className="section-title about-hero__title">
-            Empowering Achievers<br />
-            <span className="green-text">Worldwide</span>
+            Built for Reliable<br />
+            <span className="green-text">Certificate Delivery</span>
           </h1>
           <p className="section-subtitle">
-            HackuVerse is a platform dedicated to recognizing the hard work and
-            dedication of participants across events, workshops, and programs.
+            GreenCert helps organizers distribute verified certificates without
+            manual searching, emailing, or last-minute file handling.
           </p>
         </div>
       </section>
@@ -33,29 +33,29 @@ export default function About() {
           <div className="mission__text">
             <h2 className="section-title">Our Mission</h2>
             <p>
-              We believe every achievement deserves recognition. HackuVerse was
-              built to bridge the gap between event organizers and participants —
-              making it effortless to issue, verify, and download certificates.
+              We believe recognition should feel simple and trustworthy. GreenCert
+              was designed to remove the friction between participant records and
+              certificate delivery.
             </p>
             <p>
-              Our platform handles everything from participant verification to
-              dynamic certificate generation, so organizers can focus on what
-              matters: creating great experiences.
+              By combining Excel-based verification, dynamic PDF generation, and a
+              clean interface, the platform gives teams a practical system they can
+              run locally or deploy online.
             </p>
             <div className="mission__highlight">
               <span className="green-text mission__highlight-icon">◈</span>
               <span>
-                "Recognition is the fuel that drives continued excellence."
+                "Recognition should be immediate, accurate, and easy to trust."
               </span>
             </div>
           </div>
 
           <div className="mission__stats">
             {[
-              { value: '500+', label: 'Certificates Issued' },
-              { value: '10+', label: 'Events Hosted' },
-              { value: '98%', label: 'Satisfaction Rate' },
-              { value: '24h', label: 'Support Response' },
+              { value: '1 min', label: 'Average Retrieval Flow' },
+              { value: 'XLSX', label: 'Admin Data Format' },
+              { value: 'PDF', label: 'Download Output' },
+              { value: 'Logs', label: 'History Tracking' },
             ].map((s) => (
               <div className="mission__stat card" key={s.label}>
                 <span className="mission__stat-value green-text">{s.value}</span>

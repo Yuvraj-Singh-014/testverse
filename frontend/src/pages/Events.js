@@ -4,69 +4,69 @@ import './Events.css';
 const eventsData = [
   {
     id: 1,
-    title: 'Web Development Bootcamp 2024',
-    date: 'March 15–20, 2024',
+    title: 'Frontend Engineering Bootcamp',
+    date: 'May 12, 2026',
     category: 'Workshop',
     status: 'completed',
     description:
-      'An intensive 5-day bootcamp covering modern web development with React, Node.js, and cloud deployment. Participants built real-world projects and received mentorship from industry professionals.',
+      'A hands-on workshop focused on modern React patterns, responsive UI systems, and production frontend delivery.',
     participants: 120,
-    tags: ['React', 'Node.js', 'Cloud'],
+    tags: ['React', 'Design Systems', 'Frontend'],
   },
   {
     id: 2,
-    title: 'AI & Machine Learning Summit',
-    date: 'June 8–9, 2024',
+    title: 'AI Product Sprint',
+    date: 'June 21, 2026',
     category: 'Conference',
     status: 'completed',
     description:
-      'A two-day summit exploring the latest advancements in artificial intelligence and machine learning. Featured keynotes, hands-on workshops, and networking sessions.',
+      'A one-day summit for builders shipping practical AI features, with talks on evaluation, tooling, and product workflows.',
     participants: 250,
-    tags: ['AI', 'ML', 'Python'],
+    tags: ['AI', 'Evaluation', 'Product'],
   },
   {
     id: 3,
-    title: 'Cybersecurity Fundamentals',
-    date: 'August 22, 2024',
+    title: 'Cloud Security Essentials',
+    date: 'July 8, 2026',
     category: 'Workshop',
     status: 'completed',
     description:
-      'A one-day intensive workshop on cybersecurity essentials including ethical hacking, network security, and best practices for secure software development.',
+      'An intensive session on secure deployment practices, secrets management, and event infrastructure hardening.',
     participants: 80,
-    tags: ['Security', 'Networking', 'Ethical Hacking'],
+    tags: ['Security', 'Cloud', 'DevOps'],
   },
   {
     id: 4,
-    title: 'Data Science Hackathon',
-    date: 'October 5–6, 2024',
+    title: 'Data Systems Hack Day',
+    date: 'August 16, 2026',
     category: 'Hackathon',
     status: 'completed',
     description:
-      'A 48-hour hackathon where teams competed to solve real-world data challenges. Prizes awarded for innovation, accuracy, and presentation quality.',
+      'Teams built dashboard, automation, and analytics prototypes over a focused weekend sprint.',
     participants: 160,
-    tags: ['Data Science', 'Python', 'Visualization'],
+    tags: ['Data', 'Automation', 'Analytics'],
   },
   {
     id: 5,
-    title: 'Cloud Architecture Masterclass',
-    date: 'January 18, 2025',
+    title: 'Systems Design Masterclass',
+    date: 'September 5, 2026',
     category: 'Masterclass',
     status: 'completed',
     description:
-      'An advanced masterclass on designing scalable cloud architectures using AWS, Azure, and GCP. Covered microservices, serverless, and cost optimization strategies.',
+      'An advanced deep dive into scalable architecture, service boundaries, and reliable delivery for growing products.',
     participants: 95,
-    tags: ['AWS', 'Azure', 'GCP'],
+    tags: ['Architecture', 'Scalability', 'APIs'],
   },
   {
     id: 6,
-    title: 'Full-Stack Development Sprint',
-    date: 'March 10–14, 2025',
+    title: 'Full-Stack Product Sprint',
+    date: 'October 10, 2026',
     category: 'Workshop',
     status: 'upcoming',
     description:
-      'A 5-day sprint program focused on building production-ready full-stack applications. Covers TypeScript, Next.js, PostgreSQL, and CI/CD pipelines.',
+      'A build week for shipping full-stack products with React, Node.js, databases, and deployment pipelines.',
     participants: 100,
-    tags: ['TypeScript', 'Next.js', 'PostgreSQL'],
+    tags: ['Node.js', 'Full Stack', 'Deployment'],
   },
 ];
 
@@ -91,8 +91,7 @@ export default function Events() {
             Our <span className="green-text">Events</span>
           </h1>
           <p className="section-subtitle">
-            Explore all the programs, workshops, and conferences where
-            certificates were issued.
+            Explore sample programs supported by the certificate system.
           </p>
         </div>
       </section>

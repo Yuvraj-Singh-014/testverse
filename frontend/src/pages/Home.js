@@ -4,19 +4,19 @@ import './Home.css';
 
 const features = [
   {
-    icon: '🔍',
+    icon: '01',
     title: 'Instant Verification',
-    desc: 'Enter your name and email to instantly verify your participation and retrieve your certificate.',
+    desc: 'Participants verify identity with the same name and email used during registration.',
   },
   {
-    icon: '📄',
+    icon: '02',
     title: 'PDF Certificate',
-    desc: 'Receive a professionally designed, high-resolution PDF certificate ready to share or print.',
+    desc: 'The backend creates a polished PDF certificate on demand with the verified participant name.',
   },
   {
-    icon: '🔒',
+    icon: '03',
     title: 'Secure & Reliable',
-    desc: 'Your data is matched securely against our verified participant records.',
+    desc: 'Admin uploads, Excel matching, and download history give organizers a dependable workflow.',
   },
 ];
 
@@ -31,7 +31,7 @@ export default function Home() {
         <div className="container hero__content">
           <div className="badge badge-green hero__badge">
             <span className="hero__badge-dot" />
-            Certificate Portal
+            Minimal Certificate Portal
           </div>
 
           <h1 className="hero__title">
@@ -40,8 +40,8 @@ export default function Home() {
           </h1>
 
           <p className="hero__subtitle">
-            Recognize your achievement. Enter your details to instantly generate
-            and download your personalized certificate of completion.
+            Download your certificate from a clean, modern portal built for events,
+            bootcamps, workshops, and verified training programs.
           </p>
 
           <div className="hero__actions">
@@ -56,17 +56,17 @@ export default function Home() {
           <div className="hero__stats">
             <div className="hero__stat">
               <span className="hero__stat-value green-text">500+</span>
-              <span className="hero__stat-label">Certificates Issued</span>
+              <span className="hero__stat-label">Verified Downloads</span>
             </div>
             <div className="hero__stat-divider" />
             <div className="hero__stat">
               <span className="hero__stat-value green-text">10+</span>
-              <span className="hero__stat-label">Events Covered</span>
+              <span className="hero__stat-label">Live Event Sets</span>
             </div>
             <div className="hero__stat-divider" />
             <div className="hero__stat">
               <span className="hero__stat-value green-text">100%</span>
-              <span className="hero__stat-label">Verified Records</span>
+              <span className="hero__stat-label">Match-Based Delivery</span>
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@ export default function Home() {
           <div className="features__header">
             <h2 className="section-title">How It Works</h2>
             <p className="section-subtitle">
-              Three simple steps to get your certificate in seconds.
+              A straightforward flow for both participants and organizers.
             </p>
           </div>
 
@@ -100,10 +100,10 @@ export default function Home() {
           <div className="cta-banner__inner card">
             <div className="cta-banner__glow" aria-hidden="true" />
             <h2 className="cta-banner__title">
-              Ready to download your certificate?
+              Ready to retrieve your certificate?
             </h2>
             <p className="cta-banner__subtitle">
-              It only takes 30 seconds. Just enter your name and email.
+              Open the download page, verify your details, and receive a PDF instantly.
             </p>
             <Link to="/download" className="btn btn-primary btn-lg">
               Download Now →

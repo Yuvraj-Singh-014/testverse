@@ -19,7 +19,7 @@ root.render(
             color: '#ffffff',
             border: '1px solid #00ff88',
             borderRadius: '8px',
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'Manrope, sans-serif',
           },
           success: {
             iconTheme: { primary: '#00ff88', secondary: '#0a0a0a' },

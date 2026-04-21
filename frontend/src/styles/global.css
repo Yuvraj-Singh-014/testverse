@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap');
+
 /* ── CSS Variables ─────────────────────────────────────────────────────────── */
 :root {
   --bg-primary: #0a0a0a;
@@ -19,8 +21,8 @@
   --radius-md: 12px;
   --radius-lg: 20px;
   --transition: 0.2s ease;
-  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-main: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Syne', sans-serif;
 }
 
 /* ── Reset & Base ──────────────────────────────────────────────────────────── */
@@ -36,6 +38,9 @@ html {
 
 body {
   background-color: var(--bg-primary);
+  background-image:
+    radial-gradient(circle at top, rgba(0, 255, 136, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 26%);
   color: var(--text-primary);
   font-family: var(--font-main);
   font-size: 16px;
