@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import './Admin.css';
 
@@ -106,65 +106,21 @@ export default function Admin() {
 
 /* ── Upload Tab ─────────────────────────────────────────────────────────────── */
 function UploadTab({ onUploaded }) {
-  const [file, setFile] = useState(null);
-  const [dragging, setDragging] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [result, setResult] = useState(null);
-  const inputRef = useRef();
-
-  function handleFile(f) {
-    if (!f) return;
-    const allowed = [
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-excel',
-    ];
-    if (!allowed.includes(f.type) && !f.name.match(/\.(xlsx|xls)$/i)) {
-      toast.error('Only .xlsx or .xls files are accepted.');
-      return;
-    }
-    setFile(f);
-    setResult(null);
-  }
-
-  function handleDrop(e) {
-    e.preventDefault();
-    setDragging(false);
-    const f = e.dataTransfer.files[0];
-    handleFile(f);
-  }
-
-  async function handleUpload() {
-    if (!file) return;
-    setUploading(true);
-    setResult(null);
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const res = await fetch(`${API_BASE}/api/admin/upload`, {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      setResult({ success: true, message: data.message, count: data.count });
-      toast.success(data.message);
-      onUploaded();
-    } catch (err) {
-      setResult({ success: false, message: err.message });
-      toast.error(err.message);
-    } finally {
-      setUploading(false);
-    }
-  }
-
   return (
     <div className="upload-tab">
       <div className="upload-tab__info card">
-        <h3>📋 Excel File Format</h3>
-        <p>Your Excel file must have the following columns (first row = headers):</p>
-        <div className="upload-tab__table-wrap">
+        <h3>📋 How to Update Participants</h3>
+        <p>
+          This app is deployed on Vercel serverless — file uploads cannot be persisted between
+          requests. To update the participant list:
+        </p>
+        <ol className="upload-tab__steps">
+          <li>Edit <code>data/participants.xlsx</code> in the repository</li>
+          <li>Commit and push the changes</li>
+          <li>Vercel will automatically redeploy with the new data</li>
+        </ol>
+        <div className="upload-tab__table-wrap" style={{ marginTop: '20px' }}>
+          <p style={{ marginBottom: '10px' }}>Your Excel file must have these columns:</p>
           <table className="upload-tab__table">
             <thead>
               <tr>
@@ -181,68 +137,6 @@ function UploadTab({ onUploaded }) {
           </table>
         </div>
       </div>
-
-      {/* Drop zone */}
-      <div
-        className={`dropzone ${dragging ? 'dropzone--active' : ''} ${file ? 'dropzone--has-file' : ''}`}
-        onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={handleDrop}
-        onClick={() => inputRef.current.click()}
-        role="button"
-        tabIndex={0}
-        aria-label="Upload Excel file"
-        onKeyDown={(e) => e.key === 'Enter' && inputRef.current.click()}
-      >
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".xlsx,.xls"
-          style={{ display: 'none' }}
-          onChange={(e) => handleFile(e.target.files[0])}
-        />
-        {file ? (
-          <div className="dropzone__file">
-            <span className="dropzone__file-icon">📊</span>
-            <div>
-              <p className="dropzone__file-name">{file.name}</p>
-              <p className="dropzone__file-size">{(file.size / 1024).toFixed(1)} KB</p>
-            </div>
-            <button
-              className="dropzone__remove"
-              onClick={(e) => { e.stopPropagation(); setFile(null); setResult(null); }}
-              aria-label="Remove file"
-            >
-              ✕
-            </button>
-          </div>
-        ) : (
-          <div className="dropzone__placeholder">
-            <span className="dropzone__icon">📤</span>
-            <p className="dropzone__text">Drag & drop your Excel file here</p>
-            <p className="dropzone__subtext">or click to browse — .xlsx, .xls accepted</p>
-          </div>
-        )}
-      </div>
-
-      {/* Result */}
-      {result && (
-        <div className={`upload-result ${result.success ? 'upload-result--success' : 'upload-result--error'}`}>
-          {result.success ? '✅' : '❌'} {result.message}
-        </div>
-      )}
-
-      <button
-        className="btn btn-primary upload-btn"
-        onClick={handleUpload}
-        disabled={!file || uploading}
-      >
-        {uploading ? (
-          <><span className="spinner" /> Uploading...</>
-        ) : (
-          '📤 Upload File'
-        )}
-      </button>
     </div>
   );
 }

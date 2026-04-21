@@ -1,163 +1,142 @@
 # HackuVerse — Certificate Download Platform
 
 A full-stack web application for generating and downloading personalized certificates.
-Built with React, Node.js/Express, ExcelJS, and PDFKit.
+Built with React, Node.js serverless functions, ExcelJS, and PDFKit. Deployable on Vercel.
 
 ---
 
 ## Tech Stack
 
-| Layer       | Technology                        |
-|-------------|-----------------------------------|
+| Layer       | Technology                              |
+|-------------|-----------------------------------------|
 | Frontend    | React 18, React Router, react-hot-toast |
-| Backend     | Node.js, Express                  |
-| Excel       | ExcelJS                           |
-| PDF         | PDFKit (pure JS, no native deps)  |
-| Styling     | Custom CSS (green + black theme)  |
+| API         | Vercel Serverless Functions (Node.js)   |
+| Excel       | ExcelJS                                 |
+| PDF         | PDFKit                                  |
+| Styling     | Custom CSS (green + black theme)        |
 
 ---
 
 ## Project Structure
 
 ```
-├── backend/
-│   ├── assets/              # Optional: certificate_template.png
-│   ├── scripts/
-│   │   └── createSampleData.js   # Generates sample participants.xlsx
-│   ├── src/
-│   │   ├── controllers/     # Request handlers
-│   │   ├── routes/          # Express routes
-│   │   ├── services/        # Business logic (Excel, PDF, history)
-│   │   └── index.js         # Express app entry point
-│   ├── uploads/             # Uploaded Excel + download history JSON
+├── api/                        # Vercel serverless functions
+│   ├── certificate/
+│   │   └── verify.js           # POST — verify & generate certificate
+│   ├── admin/
+│   │   ├── participants.js     # GET  — list participants
+│   │   ├── history.js          # GET  — download history
+│   │   └── upload.js           # POST — (disabled on serverless)
+│   ├── health.js               # GET  — health check
 │   └── package.json
-├── frontend/
-│   ├── public/
+├── data/                       # Static data files (committed to repo)
+│   ├── participants.xlsx       # Participant records
+│   └── certificate_template.png  # Certificate background (add your own)
+├── frontend/                   # React app
 │   └── src/
-│       ├── components/      # Navbar, Footer
-│       ├── pages/           # Home, About, Events, Download, Admin
-│       ├── styles/          # global.css
-│       └── App.js
-└── README.md
+│       ├── components/         # Navbar, Footer
+│       ├── pages/              # Home, About, Events, Download, Admin
+│       └── styles/
+├── backend/                    # Local dev Express server (not used on Vercel)
+├── vercel.json                 # Vercel deployment config
+└── package.json                # Workspace root
 ```
 
 ---
 
-## Quick Start
+## Deploy to Vercel
 
-### 1. Install dependencies
+### 1. Push to GitHub
 
 ```bash
-# Backend
-cd backend && npm install
-
-# Frontend
-cd frontend && npm install
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git push -u origin main
 ```
 
-### 2. Generate sample data
+### 2. Import on Vercel
 
-```bash
-cd backend
-node scripts/createSampleData.js
-```
+1. Go to [vercel.com](https://vercel.com) → **Add New Project**
+2. Import your GitHub repository
+3. Vercel auto-detects the config from `vercel.json`
+4. Click **Deploy**
 
-This creates `backend/uploads/participants.xlsx` with 8 sample participants.
+That's it. No environment variables required for basic deployment.
 
-### 3. Start the backend
+### Optional Environment Variable
 
-```bash
-cd backend
-npm run dev        # development (nodemon)
-# or
-npm start          # production
-```
-
-Backend runs on **http://localhost:5000**
-
-### 4. Start the frontend
-
-```bash
-cd frontend
-npm start
-```
-
-Frontend runs on **http://localhost:3000**
+| Variable       | Description                        | Default |
+|----------------|------------------------------------|---------|
+| `FRONTEND_URL` | Allowed CORS origin for API calls  | `*`     |
 
 ---
 
-## Pages
+## Updating Participants
 
-| Route       | Description                              |
-|-------------|------------------------------------------|
-| `/`         | Home — hero, features, CTA              |
-| `/about`    | About Us — mission, values, team        |
-| `/events`   | Events — filterable event cards         |
-| `/download` | Download Certificate — main form        |
-| `/admin`    | Admin Panel — upload Excel, view data   |
+Since Vercel is serverless, file uploads can't persist between requests.
+To update the participant list:
 
----
-
-## Testing Certificate Download
-
-Use these credentials from the sample data:
-
-| Name            | Email                  |
-|-----------------|------------------------|
-| Alice Johnson   | alice@example.com      |
-| Bob Smith       | bob@example.com        |
-| Carol Williams  | carol@example.com      |
-| David Brown     | david@example.com      |
-| Eva Martinez    | eva@example.com        |
-
----
-
-## Custom Certificate Template
-
-To use your own certificate design:
-
-1. Create a PNG image (recommended: 1754×1240 px, landscape)
-2. Place it at `backend/assets/certificate_template.png`
-3. The participant's name will be overlaid at the vertical center
-
-If no template is found, a styled certificate is generated automatically.
-
----
-
-## Admin Panel
-
-Visit `/admin` to:
-- **Upload** a new participants Excel file (drag & drop)
-- **View** all participants loaded from the file
-- **Monitor** certificate download history
+1. Edit `data/participants.xlsx`
+2. Commit and push to GitHub
+3. Vercel redeploys automatically
 
 ### Excel Format
 
-| Column        | Required | Notes                        |
-|---------------|----------|------------------------------|
-| Name          | ✅ Yes   | Exact match used for lookup  |
-| Email         | ✅ Yes   | Case-insensitive match       |
-| CertificateID | Optional | Auto-generated if missing    |
+| Column        | Required | Notes                       |
+|---------------|----------|-----------------------------|
+| Name          | ✅ Yes   | Used for exact match lookup |
+| Email         | ✅ Yes   | Case-insensitive match      |
+| CertificateID | Optional | Auto-generated if missing   |
+
+---
+
+## Certificate Template
+
+Place your certificate background at:
+```
+data/certificate_template.png
+```
+
+- Recommended size: **1754 × 1240 px** (A4 landscape at 150 DPI)
+- The participant's name is overlaid centered at ~56.5% from the top
+- If no template is found, a styled dark certificate is generated automatically
+
+---
+
+## Local Development
+
+```bash
+# Install all dependencies
+npm install --legacy-peer-deps
+
+# Start both backend and frontend
+npm run dev
+```
+
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
+
+---
+
+## Test Credentials
+
+| Name            | Email                |
+|-----------------|----------------------|
+| Alice Johnson   | alice@example.com    |
+| Bob Smith       | bob@example.com      |
+| Carol Williams  | carol@example.com    |
+| David Brown     | david@example.com    |
+| Eva Martinez    | eva@example.com      |
 
 ---
 
 ## API Endpoints
 
-| Method | Endpoint                    | Description                    |
-|--------|-----------------------------|--------------------------------|
-| POST   | `/api/certificate/verify`   | Verify & download certificate  |
-| POST   | `/api/admin/upload`         | Upload participants Excel file |
-| GET    | `/api/admin/participants`   | List all participants          |
-| GET    | `/api/admin/history`        | Get download history           |
-| GET    | `/api/health`               | Health check                   |
-
----
-
-## Environment Variables
-
-Create `backend/.env`:
-
-```env
-PORT=5000
-FRONTEND_URL=http://localhost:3000
-```
+| Method | Endpoint                    | Description                   |
+|--------|-----------------------------|-------------------------------|
+| POST   | `/api/certificate/verify`   | Verify & download certificate |
+| GET    | `/api/admin/participants`   | List all participants         |
+| GET    | `/api/admin/history`        | Download history              |
+| GET    | `/api/health`               | Health check                  |

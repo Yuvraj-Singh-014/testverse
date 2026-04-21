@@ -1,0 +1,9 @@
+{
+  "name": "certificate-api",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "pdfkit": "^0.15.0"
+  }
+}

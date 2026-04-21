@@ -4,11 +4,13 @@
   "private": true,
   "workspaces": [
     "frontend",
-    "backend"
+    "backend",
+    "api"
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=frontend\"",
-    "install:all": "npm install && npm install --workspace=frontend && npm install --workspace=backend"
+    "build": "npm run build --workspace=frontend",
+    "install:all": "npm install --legacy-peer-deps"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
