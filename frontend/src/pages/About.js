@@ -8,12 +8,6 @@ const values = [
   { icon: '⚡', title: 'Innovation', desc: 'Modern tools to make certificate issuance fast and seamless.' },
 ];
 
-const team = [
-  { name: 'Sarah Chen', role: 'Program Director', initial: 'S' },
-  { name: 'Marcus Reid', role: 'Technical Lead', initial: 'M' },
-  { name: 'Priya Nair', role: 'Event Coordinator', initial: 'P' },
-];
-
 export default function About() {
   return (
     <div className="about">
@@ -85,25 +79,6 @@ export default function About() {
                 <div className="values__icon">{v.icon}</div>
                 <h3 className="values__title">{v.title}</h3>
                 <p className="values__desc">{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Team ── */}
-      <section className="section team">
-        <div className="container">
-          <div className="team__header">
-            <h2 className="section-title">Meet the Team</h2>
-            <p className="section-subtitle">The people behind CertifyHub.</p>
-          </div>
-          <div className="team__grid">
-            {team.map((member) => (
-              <div className="team__card card" key={member.name}>
-                <div className="team__avatar">{member.initial}</div>
-                <h3 className="team__name">{member.name}</h3>
-                <p className="team__role">{member.role}</p>
               </div>
             ))}
           </div>
