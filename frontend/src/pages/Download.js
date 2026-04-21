@@ -215,7 +215,7 @@ export default function Download() {
               </p>
               <p className="download-info__text">
                 If you still can't find your certificate, contact us at{' '}
-                <a href="mailto:support@certifyhub.com">support@certifyhub.com</a>
+                <a href="mailto:support@hackuverse.com">support@hackuverse.com</a>
               </p>
             </div>
           </div>

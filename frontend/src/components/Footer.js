@@ -8,8 +8,7 @@ export default function Footer() {
       <div className="container footer__inner">
         <div className="footer__brand">
           <Link to="/" className="footer__logo">
-            <span className="footer__logo-icon">◈</span>
-            Certify<span className="green-text">Hub</span>
+            <span className="footer__logo-hacku">Hacku</span><span className="footer__logo-verse">Verse</span>
           </Link>
           <p className="footer__tagline">
             Recognizing achievement, one certificate at a time.
@@ -33,7 +32,7 @@ export default function Footer() {
       </div>
 
       <div className="footer__bottom container">
-        <p>© {new Date().getFullYear()} CertifyHub. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} HackuVerse. All rights reserved.</p>
         <p className="footer__bottom-right">Built with ♥ for achievers</p>
       </div>
     </footer>

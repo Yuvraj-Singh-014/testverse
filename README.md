@@ -1,4 +1,4 @@
-# CertifyHub — Certificate Download Platform
+# HackuVerse — Certificate Download Platform
 
 A full-stack web application for generating and downloading personalized certificates.
 Built with React, Node.js/Express, ExcelJS, and PDFKit.

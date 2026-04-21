@@ -22,21 +22,33 @@
   gap: 32px;
 }
 
-/* Logo */
 .navbar__logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0;
   font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
   color: var(--text-primary);
   text-decoration: none;
   flex-shrink: 0;
+  letter-spacing: -0.5px;
 }
 
 .navbar__logo:hover {
   color: var(--text-primary);
+}
+
+.navbar__logo-hacku {
+  background: linear-gradient(135deg, #ccff00 0%, #00e64d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar__logo-verse {
+  color: rgba(255, 255, 255, 0.15);
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.15);
 }
 
 .navbar__logo-icon {

@@ -27,7 +27,7 @@ export default function About() {
             <span className="green-text">Worldwide</span>
           </h1>
           <p className="section-subtitle">
-            CertifyHub is a platform dedicated to recognizing the hard work and
+            HackuVerse is a platform dedicated to recognizing the hard work and
             dedication of participants across events, workshops, and programs.
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function About() {
           <div className="mission__text">
             <h2 className="section-title">Our Mission</h2>
             <p>
-              We believe every achievement deserves recognition. CertifyHub was
+              We believe every achievement deserves recognition. HackuVerse was
               built to bridge the gap between event organizers and participants —
               making it effortless to issue, verify, and download certificates.
             </p>

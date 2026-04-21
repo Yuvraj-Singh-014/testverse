@@ -20,7 +20,7 @@ function generateCertificate(participant) {
         margin: 0,
         info: {
           Title: `Certificate of Achievement — ${participant.name}`,
-          Author: 'CertifyHub',
+          Author: 'HackuVerse',
           Subject: 'Certificate of Achievement',
         },
       });
@@ -33,8 +33,10 @@ function generateCertificate(participant) {
       const W = doc.page.width;   // 841.89
       const H = doc.page.height;  // 595.28
 
+      const usingTemplate = fs.existsSync(TEMPLATE_PATH);
+
       // ── Background ──────────────────────────────────────────────────────────
-      if (fs.existsSync(TEMPLATE_PATH)) {
+      if (usingTemplate) {
         // Use the provided template image as background
         doc.image(TEMPLATE_PATH, 0, 0, { width: W, height: H });
       } else {
@@ -47,36 +49,13 @@ function generateCertificate(participant) {
       }
 
       // ── Participant Name ─────────────────────────────────────────────────────
+      // On the template: black text on the horizontal line (~56.5% from top)
+      // On the fallback dark cert: green text
       doc
-        .font('Times-BoldItalic')
-        .fontSize(52)
-        .fillColor('#00ff88')
-        .text(participant.name, 0, H * 0.46, {
-          align: 'center',
-          width: W,
-        });
-
-      // ── Certificate ID ───────────────────────────────────────────────────────
-      doc
-        .font('Courier')
-        .fontSize(11)
-        .fillColor('rgba(255,255,255,0.5)')
-        .text(`Certificate ID: ${participant.certificateId}`, 0, H * 0.84, {
-          align: 'center',
-          width: W,
-        });
-
-      // ── Issue Date ───────────────────────────────────────────────────────────
-      const issueDate = new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      });
-      doc
-        .font('Helvetica')
-        .fontSize(10)
-        .fillColor('rgba(255,255,255,0.4)')
-        .text(`Issued on: ${issueDate}`, 0, H * 0.89, {
+        .font('Times-Bold')
+        .fontSize(36)
+        .fillColor(usingTemplate ? '#1a1a1a' : '#00ff88')
+        .text(participant.name, 0, H * 0.565, {
           align: 'center',
           width: W,
         });
@@ -171,10 +150,10 @@ function drawHeader(doc, W, H) {
 }
 
 function drawBodyText(doc, W, H) {
-  // Underline for name
+  // Underline for name (at 56.5% — same as where name text is placed)
   doc
-    .moveTo(W * 0.2, H * 0.58)
-    .lineTo(W * 0.8, H * 0.58)
+    .moveTo(W * 0.2, H * 0.615)
+    .lineTo(W * 0.8, H * 0.615)
     .lineWidth(0.8)
     .strokeColor('rgba(0,255,136,0.4)')
     .stroke();
@@ -187,7 +166,7 @@ function drawBodyText(doc, W, H) {
     .text(
       'has successfully completed the program and is hereby awarded this certificate\nin recognition of outstanding performance and dedication.',
       0,
-      H * 0.62,
+      H * 0.65,
       { align: 'center', width: W, lineGap: 4 }
     );
 }
