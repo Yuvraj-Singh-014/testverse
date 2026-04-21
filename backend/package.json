@@ -1,0 +1,23 @@
+{
+  "name": "certificate-backend",
+  "version": "1.0.0",
+  "description": "Backend for certificate download application",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "multer": "^1.4.5-lts.1",
+    "pdfkit": "^0.15.0",
+    "uuid": "^10.0.0",
+    "exceljs": "^4.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
